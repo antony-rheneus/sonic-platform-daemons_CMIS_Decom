@@ -916,7 +916,10 @@ class CmisManagerTask(threading.Thread):
         self.log_notice("{}: Setting media_lanemask=0x{:x}".format(lport, media_lanes_mask))
 
         if self.is_decommission_required(api, lport):
-            self.set_decomm_pending(lport)
+            self.log_notice("{}: Skipping decommissioning logic media_lanemask=0x{:x}".format(lport, media_lanes_mask))
+            self.log_notice("{}: decommission previously unsupported on this module, skipping AppSel=0".format(lport))
+            # TODO Add logic to maintain Unsupported dict to skip decommission
+            #self.set_decomm_pending(lport)
 
         if self.is_decomm_lead_lport(lport):
             # Set all the DP lanes AppSel to unused(0) when non default app code needs to be configured
